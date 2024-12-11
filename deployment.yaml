@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: temp-app-deployment
+  labels:
+    app: temp-app
+spec:
+  replicas: 2  # Number of pod replicas
+  selector:
+    matchLabels:
+      app: temp-app
+  template:
+    metadata:
+      labels:
+        app: temp-app
+    spec:
+      containers:
+      - name: temp-app-container
+        image: akramlh/temp-app:latest  # Docker image for the application
+        ports:
+        - containerPort: 8080  # Port exposed by the container
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: temp-app-service
+  labels:
+    app: temp-app
+spec:
+  selector:
+    app: temp-app  # Matches the app label in the Deployment
+  ports:
+    - protocol: TCP
+      port: 8080       # Port exposed by the Service
+      targetPort: 8080 # Port the container listens on
+      nodePort: 30007  # NodePort for external access
+  type: NodePort       # Service type is NodePort
