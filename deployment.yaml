@@ -18,7 +18,7 @@ spec:
       - name: temp-app-container
         image: akramlh/temp-app:latest  # Docker image for the application
         ports:
-        - containerPort: 8080  # Port exposed by the container
+        - containerPort: 8081 # Port exposed by the container
 
 ---
 
@@ -33,7 +33,7 @@ spec:
     app: temp-app  # Matches the app label in the Deployment
   ports:
     - protocol: TCP
-      port: 8080       # Port exposed by the Service
-      targetPort: 8080 # Port the container listens on
+      port: 8081       # Port exposed by the Service
+      targetPort: 8081 # Port the container listens on
       nodePort: 30007  # NodePort for external access
   type: NodePort       # Service type is NodePort
